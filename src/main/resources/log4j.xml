@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="simple" class="org.apache.log4j.FileAppender">
+        <param name="File" value="movie.log" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd hh:mm:ss}>> - %m%n" />
+        </layout>
+        <param name="Encoding" value="UTF-8"/>
+    </appender>
+
+    <logger name="org.apache" additivity="false">
+        <level value="warn" />
+        <appender-ref ref="simple" />
+    </logger>
+
+    <root>
+        <level value="info" />
+        <appender-ref ref="simple" />
+    </root>
+
+</log4j:configuration>

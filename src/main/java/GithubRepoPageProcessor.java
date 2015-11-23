@@ -1,3 +1,7 @@
+import dao.MovieDao;
+import entity.Movie;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -26,6 +30,11 @@ public class GithubRepoPageProcessor implements PageProcessor {
     }
 
     public static void main(String[] args) {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/applicationContext*.xml");
+        MovieDao movieDao = (MovieDao)applicationContext.getBean("MovieDao");
+        Movie movie = new Movie();
+        movie.setTitle("test");
+        movieDao.addMovie(movie);
         Spider.create(new GithubRepoPageProcessor()).addUrl("https://github.com/code4craft").thread(5).run();
     }
 }
