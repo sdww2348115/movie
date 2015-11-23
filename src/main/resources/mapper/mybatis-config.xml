@@ -9,7 +9,7 @@
     </settings>
     
     <typeAliases>
-        <typeAlias type="entity.Movie" alias="Movie"/>
+        <typeAlias type="movie.entity.Movie" alias="Movie"/>
     </typeAliases>
     
     <mappers>

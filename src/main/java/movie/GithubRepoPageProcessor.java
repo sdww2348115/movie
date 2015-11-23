@@ -1,5 +1,7 @@
-import dao.MovieDao;
-import entity.Movie;
+package movie;
+
+import movie.dao.MovieDao;
+import movie.entity.Movie;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import us.codecraft.webmagic.Page;
@@ -7,9 +9,14 @@ import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
 
+import javax.annotation.Resource;
+
 public class GithubRepoPageProcessor implements PageProcessor {
 
     private Site site = Site.me().setRetryTimes(3).setSleepTime(100);
+
+    @Resource
+    MovieDao movieDao;
 
     @Override
     public void process(Page page) {
@@ -24,6 +31,12 @@ public class GithubRepoPageProcessor implements PageProcessor {
         System.out.println(page.getUrl().regex("https://github\\.com/(\\w+)/.*").toString());
     }
 
+    public void haha() {
+        Movie movie = new Movie();
+        movie.setTitle("haha");
+        movieDao.addMovie(movie);
+    }
+
     @Override
     public Site getSite() {
         return site;
@@ -31,10 +44,6 @@ public class GithubRepoPageProcessor implements PageProcessor {
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/applicationContext*.xml");
-        MovieDao movieDao = (MovieDao)applicationContext.getBean("MovieDao");
-        Movie movie = new Movie();
-        movie.setTitle("test");
-        movieDao.addMovie(movie);
         Spider.create(new GithubRepoPageProcessor()).addUrl("https://github.com/code4craft").thread(5).run();
     }
 }

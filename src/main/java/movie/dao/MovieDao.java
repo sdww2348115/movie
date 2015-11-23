@@ -1,6 +1,6 @@
-package dao;
+package movie.dao;
 
-import entity.Movie;
+import movie.entity.Movie;
 
 /**
  * Created by sdww on 2015/11/23.
