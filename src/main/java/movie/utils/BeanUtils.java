@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
@@ -19,9 +20,9 @@ public class BeanUtils {
      * @fieldName:该field的名称
      * @value:向该field中设的具体值
      */
-    public static void setProperty(Object item, String fieldName, Object value) {
+    public static void setProperty(Object item, Field field, Object value) {
         try {
-            PropertyDescriptor propertyDescriptor = new PropertyDescriptor(fieldName, item.getClass());
+            PropertyDescriptor propertyDescriptor = new PropertyDescriptor(field.getName(), item.getClass());
             Method setMethod = propertyDescriptor.getWriteMethod();
             setMethod.invoke(item, value);
         } catch (Exception e) {

@@ -10,7 +10,6 @@ import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 
 import java.lang.reflect.Field;
-import java.util.Map;
 
 /**
  * Created by sdww on 2015/11/23.
@@ -31,13 +30,8 @@ public class MoviePipeline implements Pipeline {
         Field[] fields = Movie.class.getFields();
         for(Field field:fields) {
             String value = resultItems.get(field.getName());
-            BeanUtils.setProperty(movie, field.getName(), value);
+            BeanUtils.setProperty(movie, field, value);
         }
-    }
-
-
-    private void setProperty() {
-
     }
 
 }
