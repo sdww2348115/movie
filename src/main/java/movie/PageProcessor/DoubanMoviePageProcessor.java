@@ -1,10 +1,10 @@
 package movie.PageProcessor;
 
+import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
-import us.codecraft.webmagic.selector.Selectable;
-import us.codecraft.webmagic.selector.Selector;
 
 import java.util.List;
 
@@ -33,6 +33,7 @@ public class DoubanMoviePageProcessor implements PageProcessor {
         }
 
         //抓取相应信息
+        Elements element = page.getHtml().getDocument().select("#info .attrs a[rel='v:starring']");
 
         //作者的选择器在此使用时不能正常工作，故使用xPath选择器
         //page.putField("title", page.getHtml().$("h1 span[property='v:itemreviewed']", "innerHtml"));
