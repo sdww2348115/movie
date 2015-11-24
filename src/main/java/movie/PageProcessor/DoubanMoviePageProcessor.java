@@ -38,8 +38,8 @@ public class DoubanMoviePageProcessor implements PageProcessor {
         //page.putField("title", page.getHtml().$("h1 span[property='v:itemreviewed']", "innerHtml"));
         page.putField("title", page.getHtml().xpath("h1/span[@property='v:itemreviewed']/text()").toString());
         page.putField("image", page.getHtml().$("#mainpic img", "src"));
-        Selectable selectable = page.getHtml().xpath("info//a[@rel='v:directedBy']");
-        page.putField("director", page.getHtml().xpath("info//a[@rel='v:directedBy']/text()").all());
+        List<String> xxx = page.getHtml().xpath("div[@id='info']//a[@rel='v:directedBy']/text()").all();
+        page.putField("director", page.getHtml().xpath("div[@id='info']//a[@rel='v:directedBy']/text()").all());
         page.putField("actor", page.getHtml().$("#info .attrs").$("a[rel='v:starring']", "innerHtml"));
 
     }
