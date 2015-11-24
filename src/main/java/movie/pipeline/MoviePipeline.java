@@ -22,7 +22,7 @@ public class MoviePipeline implements Pipeline {
 
     /**
      * Process extracted results.
-     * get movie info ,keep them to dataBase
+     * get movie info,keep them to dataBase
      */
     @Override
     public void process(ResultItems resultItems, Task task) {

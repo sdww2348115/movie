@@ -7,11 +7,11 @@
     <insert id="addMovie" parameterType="movie.entity.Movie" useGeneratedKeys="true" keyColumn="id">
         INSERT INTO t_movie
         (
-        title
+        title, image, director, actor, genre, initalRleaseDate, runtime, averageScore, ratingNum, summary
         )
         VALUES
         (
-        #{title}
+        #{title}, #{image}, #{director}, #{actor}, #{genre}, #{initalRleaseDate}, #{runtime}, #{averageScore}, #{ratingNum}, #{summary}
         )
     </insert>
 </mapper>

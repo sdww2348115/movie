@@ -11,8 +11,13 @@
     <typeAliases>
         <typeAlias type="movie.entity.Movie" alias="Movie"/>
     </typeAliases>
+
+    <typeHandlers>
+        <typeHandler handler="movie.framework.mybatis.ListTypeHandler" javaType="java.util.List"/>
+    </typeHandlers>
     
     <mappers>
         <mapper resource="mapper/MovieMapper.xml"/>
     </mappers>
+
 </configuration>
