@@ -2,6 +2,8 @@ package movie;
 
 import movie.PageProcessor.DoubanMoviePageProcessor;
 import movie.PageProcessor.GithubRepoPageProcessor;
+import movie.dao.MovieDao;
+import movie.entity.Movie;
 import movie.pipeline.MoviePipeline;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

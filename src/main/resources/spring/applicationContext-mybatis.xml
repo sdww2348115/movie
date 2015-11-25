@@ -13,13 +13,13 @@
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://www.sdww8591.com:3306/movie?characterEncoding=UTF-8"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/movie?characterEncoding=UTF-8"/>
         <property name="username" value="sdww" />
         <property name="password" value="sdww" />
     </bean>
 
     <!-- mappers -->
-    <bean id="MovieDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <bean id="movieDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
         <property name="mapperInterface" value="movie.dao.MovieDao"/>
     </bean>
