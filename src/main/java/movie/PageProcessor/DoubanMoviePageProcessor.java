@@ -1,5 +1,6 @@
 package movie.PageProcessor;
 
+import movie.utils.BeanUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
@@ -11,6 +12,8 @@ import java.util.List;
  * Created by sdww on 2015/11/24.
  */
 public class DoubanMoviePageProcessor implements PageProcessor {
+
+    public static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(BeanUtils.class);
 
     private Site site = Site.me().setRetryTimes(3).setSleepTime(100).setUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36");
 
@@ -49,9 +52,24 @@ public class DoubanMoviePageProcessor implements PageProcessor {
             }
         }
 
-        page.putField("runtime", Integer.valueOf(page.getHtml().$("#info span[property=v:runtime]", "innerHtml").regex("[\\d]+").get()));
-        page.putField("averageScore", new BigDecimal(page.getHtml().$("strong[property=v:average]", "innerHtml").get()));
-        page.putField("ratingNum", Integer.valueOf(page.getHtml().$(".rating_sum span[property=v:votes]", "innerHtml").get()));
+        try {
+            page.putField("runtime", Integer.valueOf(page.getHtml().$("#info span[property=v:runtime]", "innerHtml").regex("[\\d]+").get()));
+        } catch (Exception e) {
+            logger.warn(e.getStackTrace().toString());
+        }
+
+        try {
+            page.putField("averageScore", new BigDecimal(page.getHtml().$("strong[property=v:average]", "innerHtml").get()));
+        } catch (Exception e) {
+            logger.warn(e.getStackTrace().toString());
+        }
+
+        try {
+            page.putField("ratingNum", Integer.valueOf(page.getHtml().$(".rating_sum span[property=v:votes]", "innerHtml").get()));
+        } catch (Exception e) {
+            logger.warn(e.getStackTrace().toString());
+        }
+        
         page.putField("summary", page.getHtml().$("span[property=v:summary]", "innerHtml").get());
     }
 }
