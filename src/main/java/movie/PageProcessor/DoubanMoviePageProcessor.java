@@ -1,11 +1,10 @@
 package movie.PageProcessor;
 
-import org.jsoup.Jsoup;
-import org.jsoup.select.Elements;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -36,16 +35,23 @@ public class DoubanMoviePageProcessor implements PageProcessor {
         /**
          * 注：使用jsoup时与js使用的CSS选择器有些许不同，例如a[rel='v:starring']中间的''在JS中代表字符串，但是于jsoup中却不需要此字符
          */
-        Elements element = page.getHtml().getDocument().select("#info .attrs a[rel=v:starring]");
-
-
-        //作者的选择器在此使用时不能正常工作，故使用xPath选择器
-        //page.putField("title", page.getHtml().$("h1 span[property='v:itemreviewed']", "innerHtml"));
-        page.putField("title", page.getHtml().xpath("h1/span[@property='v:itemreviewed']/text()").toString());
-        page.putField("image", page.getHtml().$("#mainpic img", "src"));
-        List<String> xxx = page.getHtml().xpath("div[@id='info']//a[@rel='v:directedBy']/text()").all();
+        page.putField("title", page.getHtml().$("h1 span[property=v:itemreviewed]", "innerHtml").get());
+        page.putField("image", page.getHtml().$("#mainpic img", "src").get());
         page.putField("director", page.getHtml().xpath("div[@id='info']//a[@rel='v:directedBy']/text()").all());
-        page.putField("actor", page.getHtml().$("#info .attrs").$("a[rel='v:starring']", "innerHtml"));
+        page.putField("actor", page.getHtml().$("#info .attrs a[rel=v:starring]", "innerHtml").all());
+        page.putField("genre", page.getHtml().$("#info span[property=v:genre]", "innerHtml").all());
 
+        //只记录大陆上映时间
+        List<String> dates = page.getHtml().$("#info span[property=v:initalRleaseDate]", "innerHtml").all();
+        for(String date:dates) {
+            if(date.contains("中国大陆")) {
+                page.putField("initalRleaseDate", date);
+            }
+        }
+
+        page.putField("runtime", Integer.valueOf(page.getHtml().$("#info span[property=v:runtime]", "innerHtml").get()));
+        page.putField("averageScore", new BigDecimal(page.getHtml().$("strong[property=v:average]", "innerHtml").get()));
+        page.putField("ratingNum", Integer.valueOf(page.getHtml().$(".rating_sum span[property=v:votes]", "innerHtml").get()));
+        page.putField("summary", page.getHtml().$("span[property=v:summary]", "innerHtml").get());
     }
 }

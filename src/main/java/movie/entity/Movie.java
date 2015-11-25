@@ -1,6 +1,7 @@
 package movie.entity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,17 +28,17 @@ public class Movie {
     /*
     导演
      */
-    private List<String> director = new LinkedList<String>();
+    private List<String> director = new ArrayList<String>();
 
     /*
     主演
      */
-    private List<String> actor = new LinkedList<String>();
+    private List<String> actor = new ArrayList<String>();
 
     /*
     类型
      */
-    private List<String> genre = new LinkedList<String>();
+    private List<String> genre = new ArrayList<String>();
 
     /*
     上映时间

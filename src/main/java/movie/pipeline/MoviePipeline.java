@@ -27,7 +27,7 @@ public class MoviePipeline implements Pipeline {
     @Override
     public void process(ResultItems resultItems, Task task) {
         Movie movie = new Movie();
-        Field[] fields = Movie.class.getFields();
+        Field[] fields = movie.getClass().getDeclaredFields();
         for(Field field:fields) {
             String value = resultItems.get(field.getName());
             BeanUtils.setProperty(movie, field, value);
