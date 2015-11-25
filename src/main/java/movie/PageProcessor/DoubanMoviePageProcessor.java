@@ -42,14 +42,14 @@ public class DoubanMoviePageProcessor implements PageProcessor {
         page.putField("genre", page.getHtml().$("#info span[property=v:genre]", "innerHtml").all());
 
         //只记录大陆上映时间
-        List<String> dates = page.getHtml().$("#info span[property=v:initalRleaseDate]", "innerHtml").all();
+        List<String> dates = page.getHtml().$("#info span[property=v:initialReleaseDate]", "innerHtml").all();
         for(String date:dates) {
             if(date.contains("中国大陆")) {
-                page.putField("initalRleaseDate", date);
+                page.putField("initialReleaseDate", date);
             }
         }
 
-        page.putField("runtime", Integer.valueOf(page.getHtml().$("#info span[property=v:runtime]", "innerHtml").get()));
+        page.putField("runtime", Integer.valueOf(page.getHtml().$("#info span[property=v:runtime]", "innerHtml").regex("[\\d]+").get()));
         page.putField("averageScore", new BigDecimal(page.getHtml().$("strong[property=v:average]", "innerHtml").get()));
         page.putField("ratingNum", Integer.valueOf(page.getHtml().$(".rating_sum span[property=v:votes]", "innerHtml").get()));
         page.putField("summary", page.getHtml().$("span[property=v:summary]", "innerHtml").get());

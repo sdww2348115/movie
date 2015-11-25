@@ -43,12 +43,12 @@ public class Movie {
     /*
     上映时间
      */
-    private String initalRleaseDate;
+    private String initialReleaseDate;
 
     /*
     播放时长
      */
-    private int runtime;
+    private Integer runtime;
 
     /*
     评分
@@ -58,7 +58,7 @@ public class Movie {
     /*
     总评分人数
      */
-    private int ratingNum;
+    private Integer ratingNum;
 
     /*
     简介
@@ -113,12 +113,12 @@ public class Movie {
         this.genre = genre;
     }
 
-    public String getInitalRleaseDate() {
-        return initalRleaseDate;
+    public String getInitialReleaseDate() {
+        return initialReleaseDate;
     }
 
-    public void setInitalRleaseDate(String initalRleaseDate) {
-        this.initalRleaseDate = initalRleaseDate;
+    public void setInitialReleaseDate(String initialReleaseDate) {
+        this.initialReleaseDate = initialReleaseDate;
     }
 
     public int getRuntime() {

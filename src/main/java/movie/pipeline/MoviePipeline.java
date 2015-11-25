@@ -26,10 +26,13 @@ public class MoviePipeline implements Pipeline {
      */
     @Override
     public void process(ResultItems resultItems, Task task) {
+        if (resultItems.getAll().size() == 0) {
+            return;
+        }
         Movie movie = new Movie();
         Field[] fields = movie.getClass().getDeclaredFields();
         for(Field field:fields) {
-            String value = resultItems.get(field.getName());
+            Object value = resultItems.get(field.getName());
             BeanUtils.setProperty(movie, field, value);
         }
     }
