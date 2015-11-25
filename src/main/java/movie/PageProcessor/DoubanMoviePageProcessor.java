@@ -33,7 +33,11 @@ public class DoubanMoviePageProcessor implements PageProcessor {
         }
 
         //抓取相应信息
-        Elements element = page.getHtml().getDocument().select("#info .attrs a[rel='v:starring']");
+        /**
+         * 注：使用jsoup时与js使用的CSS选择器有些许不同，例如a[rel='v:starring']中间的''在JS中代表字符串，但是于jsoup中却不需要此字符
+         */
+        Elements element = page.getHtml().getDocument().select("#info .attrs a[rel=v:starring]");
+
 
         //作者的选择器在此使用时不能正常工作，故使用xPath选择器
         //page.putField("title", page.getHtml().$("h1 span[property='v:itemreviewed']", "innerHtml"));
