@@ -17,6 +17,8 @@ import java.lang.reflect.Field;
 @Component("moviePipeline")
 public class MoviePipeline implements Pipeline {
 
+    public static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(BeanUtils.class);
+
     @Autowired
     MovieDao movieDao;
 
@@ -34,6 +36,12 @@ public class MoviePipeline implements Pipeline {
         for(Field field:fields) {
             Object value = resultItems.get(field.getName());
             BeanUtils.setProperty(movie, field, value);
+        }
+
+        try {
+            movieDao.addMovie(movie);
+        } catch (Exception e) {
+            logger.warn(e.getStackTrace().toString());
         }
     }
 

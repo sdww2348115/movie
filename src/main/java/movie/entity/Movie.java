@@ -121,11 +121,11 @@ public class Movie {
         this.initialReleaseDate = initialReleaseDate;
     }
 
-    public int getRuntime() {
+    public Integer getRuntime() {
         return runtime;
     }
 
-    public void setRuntime(int runtime) {
+    public void setRuntime(Integer runtime) {
         this.runtime = runtime;
     }
 
@@ -137,11 +137,11 @@ public class Movie {
         this.averageScore = averageScore;
     }
 
-    public int getRatingNum() {
+    public Integer getRatingNum() {
         return ratingNum;
     }
 
-    public void setRatingNum(int ratingNum) {
+    public void setRatingNum(Integer ratingNum) {
         this.ratingNum = ratingNum;
     }
 
