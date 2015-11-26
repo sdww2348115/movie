@@ -21,7 +21,7 @@ public class ListTypeHandler extends BaseTypeHandler<List> {
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, List list, JdbcType jdbcType) throws SQLException {
         if(list == null) return;
-        StringBuilder stringBuilder = new StringBuilder('/');
+        StringBuilder stringBuilder = new StringBuilder("/");
         for(Object obj:list) {
             stringBuilder.append(obj.toString());
             stringBuilder.append('/');
