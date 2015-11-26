@@ -11,5 +11,6 @@ CREATE TABLE t_movie (
   averageScore DECIMAL(11,2) NOT NULL COMMENT '电影评分',
   ratingNum INT COMMENT '总评分人数',
   summary TEXT(5000) COMMENT '电影简介',
+  createdTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='电影表';

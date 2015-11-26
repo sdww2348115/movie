@@ -5,7 +5,7 @@
     <appender name="simple" class="org.apache.log4j.FileAppender">
         <param name="File" value="movie.log" />
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{yyyy-MM-dd hh:mm:ss}>> - %m%n" />
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss}>> - %m%n" />
         </layout>
         <param name="Encoding" value="UTF-8"/>
     </appender>
