@@ -69,7 +69,7 @@ public class DoubanMoviePageProcessor implements PageProcessor {
         } catch (Exception e) {
             logger.warn(e.getStackTrace().toString());
         }
-        
+
         page.putField("summary", page.getHtml().$("span[property=v:summary]", "innerHtml").get());
     }
 }
