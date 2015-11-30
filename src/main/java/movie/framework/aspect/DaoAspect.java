@@ -21,8 +21,13 @@ public class DaoAspect {
             for (Object obj : args) {
                 if (Movie.class.isInstance(obj)) {
                     Movie movie = (Movie) obj;
+                    //片长
                     if (movie.getRuntime() == null) {
                         movie.setRuntime(0);
+                    }
+                    //上映日期
+                    if (movie.getInitialReleaseDate() == null) {
+                        movie.setInitialReleaseDate("国内未上映");
                     }
                 }
             }
