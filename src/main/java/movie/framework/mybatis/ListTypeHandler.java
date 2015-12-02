@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * mybatis的java类型-sql类型相互转换类
  * Created by sdww on 2015/11/24.
  */
 @MappedJdbcTypes(includeNullJdbcType = true, value = {JdbcType.VARCHAR})

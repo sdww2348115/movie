@@ -16,9 +16,9 @@ public class BeanUtils {
 
     /**
      * 利用反射向bean中设置相应值
-     * @item:向此类中设置值的类
-     * @fieldName:该field的名称
-     * @value:向该field中设的具体值
+     * @param item 向此类中设置值的类
+     * @param field 该field的名称
+     * @param value 向该field中设的具体值
      */
     public static void setProperty(Object item, Field field, Object value) {
         try {

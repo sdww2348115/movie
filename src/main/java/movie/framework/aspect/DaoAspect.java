@@ -13,7 +13,7 @@ public class DaoAspect {
 
     /**
      * 在将Movie类传入数据库之前先处理，如果时间为null则置0.此处在数据库设置DEFAULT 0更好，此处只为练习AOP编程
-     * @param joinpoint
+     * @param joinpoint 切面点
      */
     public void before(JoinPoint joinpoint) {
         try {

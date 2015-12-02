@@ -23,8 +23,9 @@ public class MoviePipeline implements Pipeline {
     MovieDao movieDao;
 
     /**
-     * Process extracted results.
-     * get movie info,keep them to dataBase
+     * 将页面抓取属性持久化到数据库
+     * @param resultItems 页面抓取相应属性
+     * @param task 任务
      */
     @Override
     public void process(ResultItems resultItems, Task task) {
