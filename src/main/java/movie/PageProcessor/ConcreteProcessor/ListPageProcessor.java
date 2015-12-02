@@ -1,0 +1,31 @@
+package movie.PageProcessor.ConcreteProcessor;
+
+import us.codecraft.webmagic.Page;
+
+import java.util.List;
+
+/**
+ * 豆瓣电影tag列表页processor
+ * Created by sdww on 2015/12/2.
+ */
+public class ListPageProcessor extends BaseProcessor{
+
+    public ListPageProcessor() {
+        super("http://www.douban.com/tag/[\\u4e00-\\u9fa5a-zA-Z0-9]+/movie");
+    }
+
+    @Override
+    public void process(Page page) {
+
+        //因为豆瓣的列表页面为动态生成的，当一个列表页没有具体电影信息的话，即可忽略此页后续的链接
+        if(page.getHtml().links().regex("http://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all() == null || page.getHtml().links().regex("http://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all().size() == 0) {
+            return;
+        }
+
+        //添加该页的所有列表页与具体电影页
+        List<String> urls = page.getHtml().links().regex("http://www.douban.com/tag/[\\u4e00-\\u9fa5a-zA-Z0-9]+/movie\\?start=[\\d]+").all();
+        urls.addAll(page.getHtml().links().regex("http://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all());
+        page.addTargetRequests(urls);
+        return;
+    }
+}
