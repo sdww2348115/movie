@@ -24,52 +24,57 @@ public class DoubanMoviePageProcessor implements PageProcessor {
 
     @Override
     public void process(Page page) {
-        //添加下一步页面
-        List<String> urls = page.getHtml().links().regex("http://www.douban.com/tag/爱情/movie\\?start=[\\d]+").all();
-        urls.addAll(page.getHtml().links().regex("http://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all());
-        page.addTargetRequests(urls);
 
-        //如果是电影列表页的话直接继续接下来的步骤
+        //如果是电影列表页
         if(!page.getRequest().getUrl().matches("http://movie.douban.com/subject/[\\d]+(.*)")) {
-            return;
-        }
 
-        //抓取相应信息
-        /**
-         * 注：使用jsoup时与js使用的CSS选择器有些许不同，例如a[rel='v:starring']中间的''在JS中代表字符串，但是于jsoup中却不需要此字符
-         */
-        page.putField("title", page.getHtml().$("h1 span[property=v:itemreviewed]", "innerHtml").get());
-        page.putField("image", page.getHtml().$("#mainpic img", "src").get());
-        page.putField("director", page.getHtml().xpath("div[@id='info']//a[@rel='v:directedBy']/text()").all());
-        page.putField("actor", page.getHtml().$("#info .attrs a[rel=v:starring]", "innerHtml").all());
-        page.putField("genre", page.getHtml().$("#info span[property=v:genre]", "innerHtml").all());
-
-        //只记录大陆上映时间
-        List<String> dates = page.getHtml().$("#info span[property=v:initialReleaseDate]", "innerHtml").all();
-        for(String date:dates) {
-            if(date.contains("中国大陆")) {
-                page.putField("initialReleaseDate", date);
+            //因为豆瓣的列表页面为动态生成的，当一个列表页没有具体电影信息的话，即可忽略此页后续的链接
+            if(page.getHtml().links().regex("http://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all() == null || page.getHtml().links().regex("http://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all().size() == 0) {
+                return;
             }
-        }
 
-        try {
-            page.putField("runtime", Integer.valueOf(page.getHtml().$("#info span[property=v:runtime]", "innerHtml").regex("[\\d]+").get()));
-        } catch (Exception e) {
-            logger.warn(e.getStackTrace().toString());
-        }
+            List<String> urls = page.getHtml().links().regex("http://www.douban.com/tag/爱情/movie\\?start=[\\d]+").all();
+            urls.addAll(page.getHtml().links().regex("http://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all());
+            page.addTargetRequests(urls);
+            return;
+        } else {
+            //抓取相应信息
+            /**
+             * 注：使用jsoup时与js使用的CSS选择器有些许不同，例如a[rel='v:starring']中间的''在JS中代表字符串，但是于jsoup中却不需要此字符
+             */
+            page.putField("title", page.getHtml().$("h1 span[property=v:itemreviewed]", "innerHtml").get());
+            page.putField("image", page.getHtml().$("#mainpic img", "src").get());
+            page.putField("director", page.getHtml().xpath("div[@id='info']//a[@rel='v:directedBy']/text()").all());
+            page.putField("actor", page.getHtml().$("#info .attrs a[rel=v:starring]", "innerHtml").all());
+            page.putField("genre", page.getHtml().$("#info span[property=v:genre]", "innerHtml").all());
 
-        try {
-            page.putField("averageScore", new BigDecimal(page.getHtml().$("strong[property=v:average]", "innerHtml").get()));
-        } catch (Exception e) {
-            logger.warn(e.getStackTrace().toString());
-        }
+            //只记录大陆上映时间
+            List<String> dates = page.getHtml().$("#info span[property=v:initialReleaseDate]", "innerHtml").all();
+            for(String date:dates) {
+                if(date.contains("中国大陆")) {
+                    page.putField("initialReleaseDate", date);
+                }
+            }
 
-        try {
-            page.putField("ratingNum", Integer.valueOf(page.getHtml().$(".rating_sum span[property=v:votes]", "innerHtml").get()));
-        } catch (Exception e) {
-            logger.warn(e.getStackTrace().toString());
-        }
+            try {
+                page.putField("runtime", Integer.valueOf(page.getHtml().$("#info span[property=v:runtime]", "innerHtml").regex("[\\d]+").get()));
+            } catch (Exception e) {
+                logger.warn(e.getStackTrace().toString());
+            }
 
-        page.putField("summary", page.getHtml().$("span[property=v:summary]", "innerHtml").get());
+            try {
+                page.putField("averageScore", new BigDecimal(page.getHtml().$("strong[property=v:average]", "innerHtml").get()));
+            } catch (Exception e) {
+                logger.warn(e.getStackTrace().toString());
+            }
+
+            try {
+                page.putField("ratingNum", Integer.valueOf(page.getHtml().$(".rating_sum span[property=v:votes]", "innerHtml").get()));
+            } catch (Exception e) {
+                logger.warn(e.getStackTrace().toString());
+            }
+
+            page.putField("summary", page.getHtml().$("span[property=v:summary]", "innerHtml").get());
+        }
     }
 }
