@@ -2,8 +2,9 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-    <appender name="simple" class="org.apache.log4j.FileAppender">
-        <param name="File" value="movie.log" />
+    <appender name="simple" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="./logs/movie.log" />
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH'.log'" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss}>> - %m%n" />
         </layout>
