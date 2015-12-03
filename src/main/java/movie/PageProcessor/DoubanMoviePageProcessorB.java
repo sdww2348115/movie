@@ -48,7 +48,7 @@ public class DoubanMoviePageProcessorB implements PageProcessor {
              */
             for(BaseProcessor processor:processors) {
                 if(processor.accept(page)) {
-                    process(page);
+                    processor.process(page);
                 }
             }
         }catch (Exception e) {
