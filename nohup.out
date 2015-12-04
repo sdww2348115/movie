@@ -1,0 +1,2 @@
+log4j:WARN Continuable parsing error 12 and column 16
+log4j:WARN 元素类型为 "appender" 的内容必须匹配 "(errorHandler?,param*,rollingPolicy?,triggeringPolicy?,connectionSource?,layout?,filter*,appender-ref*)"。
