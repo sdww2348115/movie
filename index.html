@@ -1,0 +1,74 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on https://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen">
+  <link rel="stylesheet" href="stylesheets/github-dark.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>Movie</title>
+  <meta name="description" content="issues">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">Movie</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">issues</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/sdww2348115/movie/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/sdww2348115/movie/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/sdww2348115/movie" class="code">View Movie on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <h5>
+<a id="2015-12-04" class="anchor" href="#2015-12-04" aria-hidden="true"><span class="octicon octicon-link"></span></a>2015-12-04</h5>
+
+<p>打出的的jar包在aliyun服务器上运行一段时间常常自己死掉，未有任何输出信息
+考虑如下：</p>
+
+<ul>
+<li>1.由于虚拟服务器内存只有1g，考虑OOM的情况导致整个jvm crash掉（使用sudo dmesg -T | grep "(java)"命令无法得到任何有效信息）</li>
+<li>2.程序超过jvm的内存限制导致jvm强制关闭掉程序（但是却无任何错误log，即使设置了-XX:ErrorFile参数）
+为证明结论，特做以下操作：</li>
+<li>1.在aliyun主机上使用crontab每分钟执行free命令并输出，发现并没有使用内存接近或者达到满内存的情况</li>
+<li>2.启动java时加入-mx512m，等待并查看情况</li>
+</ul>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/sdww2348115" class="avatar"><img src="https://avatars0.githubusercontent.com/u/12652178?v=3&amp;s=60" width="48" height="48"></a> <a href="https://github.com/sdww2348115">sdww2348115</a> maintains <a href="https://github.com/sdww2348115/movie">Movie</a></p>
+
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/sdww2348115/movie/tarball/master" class="tar">tar</a><a href="https://github.com/sdww2348115/movie/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+  
+</body>
+</html>
