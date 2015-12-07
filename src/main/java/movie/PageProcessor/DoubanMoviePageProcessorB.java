@@ -20,7 +20,7 @@ public class DoubanMoviePageProcessorB implements PageProcessor {
 
     private List<BaseProcessor> processors = new LinkedList<BaseProcessor>();
 
-    private Site site = Site.me().setRetryTimes(3).setSleepTime(20000).setUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36");
+    private Site site = Site.me().setRetryTimes(3).setSleepTime(10000).setUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36");
 
     @Override
     public Site getSite() {
