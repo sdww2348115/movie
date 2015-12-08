@@ -21,7 +21,7 @@ public class ListPageProcessor extends BaseProcessor{
     public void process(Page page) {
 
         //因为豆瓣的列表页面为动态生成的，当一个列表页没有具体电影信息的话，即可忽略此页后续的链接
-        if(page.getHtml().links().regex("http://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all() == null || page.getHtml().links().regex("http://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all().size() == 0) {
+        /*if(page.getHtml().links().regex("http://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all() == null || page.getHtml().links().regex("http://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all().size() == 0) {
 
             String tag = "UNKNOWN";
             Scanner scanner = new Scanner(page.getUrl().get());
@@ -34,7 +34,7 @@ public class ListPageProcessor extends BaseProcessor{
 
             logger.warn("tag " + tag + " complete!");
             return;
-        }
+        }*/
 
         //添加该页的所有列表页与具体电影页
         List<String> urls = page.getHtml().links().regex("http://www.douban.com/tag/[\\u4e00-\\u9fa5a-zA-Z0-9]+/movie\\?start=[\\d]+").all();
