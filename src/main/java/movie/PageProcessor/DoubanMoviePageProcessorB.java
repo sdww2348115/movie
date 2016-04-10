@@ -4,6 +4,8 @@ import movie.PageProcessor.ConcreteProcessor.BaseProcessor;
 import movie.PageProcessor.ConcreteProcessor.ListPageProcessor;
 import movie.PageProcessor.ConcreteProcessor.MovieProcessor;
 import movie.PageProcessor.ConcreteProcessor.TagPageProcessor;
+import movie.entity.UrlProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
@@ -15,6 +17,9 @@ import java.util.List;
  * Created by sdww on 2015/12/2.
  */
 public class DoubanMoviePageProcessorB implements PageProcessor {
+
+    @Autowired
+    private UrlProperties urlProperties;
 
     public static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(DoubanMoviePageProcessorB.class);
 

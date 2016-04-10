@@ -35,4 +35,21 @@
             <aop:before pointcut-ref="schedulerCut" method="before"/>
         </aop:aspect>
     </aop:config>
+
+    <!--property管理bean 一些通用的参数由property文件管理-->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>/property/url.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding">
+            <value>UTF-8</value>
+        </property>
+    </bean>
+
+    <!--url基础参数设置-->
+    <bean id="urlProperties" class="movie.entity.UrlProperties">
+        <property name="baseUrl" value="${baseUrl}"/>
+    </bean>
 </beans>

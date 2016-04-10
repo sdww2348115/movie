@@ -11,10 +11,10 @@ import java.util.List;
  */
 public class TagPageProcessor extends BaseProcessor{
 
-    private static final String urlTemplete = "http://www.douban.com/tag/%s/movie";
+    private static final String urlTemplete = "https://www.douban.com/tag/%s/movie";
 
     public TagPageProcessor() {
-        super("http://movie.douban.com/tag/");
+        super("http[s]{0,1}://movie.douban.com/tag/");
     }
 
     @Override

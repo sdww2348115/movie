@@ -20,7 +20,7 @@ public class MovieConfig {
 
     @Bean
     public Spider movieSpider() {
-        return Spider.create(new DoubanMoviePageProcessorB()).addUrl("http://movie.douban.com/tag/").addPipeline(moviePipeline).thread(5);
+        return Spider.create(new DoubanMoviePageProcessorB()).addUrl("https://movie.douban.com/tag/").addPipeline(moviePipeline).thread(5);
     }
 
     /**
