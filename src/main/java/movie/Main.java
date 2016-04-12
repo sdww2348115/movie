@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.scheduler.Scheduler;
 
 /**
  * Created by sdww on 2015/11/24.
@@ -18,6 +19,7 @@ public class Main {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/applicationContext*.xml");
         final Spider spider = (Spider)applicationContext.getBean("movieSpider");
+        spider.setScheduler((Scheduler)applicationContext.getBean("queueScheduler"));
         spider.run();
     }
 }

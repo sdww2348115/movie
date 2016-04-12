@@ -40,6 +40,7 @@ public class ListPageProcessor extends BaseProcessor{
         List<String> urls = page.getHtml().links().regex("http[s]{0,1}://www.douban.com/tag/[\\u4e00-\\u9fa5a-zA-Z0-9]+/movie\\?start=[\\d]+").all();
         urls.addAll(page.getHtml().links().regex("http[s]{0,1}://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all());
         page.addTargetRequests(urls);
+        logger.info("page" + page.getUrl().get() + "adds {} targets", page.getTargetRequests().size());
         return;
     }
 }

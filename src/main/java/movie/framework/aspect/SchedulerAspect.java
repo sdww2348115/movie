@@ -39,7 +39,7 @@ public class SchedulerAspect {
                 }
             }
 
-            logger.info("Alive threads : " + "Left Requests Count: " + scheduler.getLeftRequestsCount(task) + " Total Requests Count: " + scheduler.getTotalRequestsCount(task));
+            logger.info("Left Requests Count: " + scheduler.getLeftRequestsCount(task) + " Total Requests Count: " + scheduler.getTotalRequestsCount(task));
         } catch (Exception e) {
             logger.warn("SchedulerAspect before error!");
         }
