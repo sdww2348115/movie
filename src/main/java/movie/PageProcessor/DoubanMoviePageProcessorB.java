@@ -4,6 +4,7 @@ import movie.PageProcessor.ConcreteProcessor.BaseProcessor;
 import movie.PageProcessor.ConcreteProcessor.ListPageProcessor;
 import movie.PageProcessor.ConcreteProcessor.MovieProcessor;
 import movie.PageProcessor.ConcreteProcessor.TagPageProcessor;
+import movie.utils.UserAgentUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
@@ -22,9 +23,7 @@ public class DoubanMoviePageProcessorB implements PageProcessor {
 
     private long startTime = 0;
 
-    private List<String> userAgents = new LinkedList<String>();
-
-    private Site site = Site.me().setRetryTimes(3).setSleepTime(10000).setUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36");
+    private Site site = Site.me().setRetryTimes(3).setSleepTime(10000);
 
     @Override
     public Site getSite() {
@@ -36,14 +35,10 @@ public class DoubanMoviePageProcessorB implements PageProcessor {
      * 由于此构建函数于spider类创建时创建，所以不存在并发性问题
      */
     public DoubanMoviePageProcessorB() {
-        userAgents.add("Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML like Gecko) Chrome/28.0.1469.0 Safari/537.36");
-        userAgents.add("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36");
-        userAgents.add("Mozilla/5.0 (Windows NT 5.1; rv:36.0) Gecko/20100101 Firefox/36.0");
-        userAgents.add("Mozilla/5.0 (Windows NT 6.2; rv:41.0) Gecko/20100101 Firefox/43.0");
-        userAgents.add("Mozilla/5.0 (Windows NT 6.3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36");
-        userAgents.add("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36");
-        userAgents.add("Mozilla/5.0 (Windows NT 6.2; rv:39.0) Gecko/20100101 Firefox/37.0");
-        userAgents.add("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.89 Safari/537.36");
+        List<String[]> proxys = new LinkedList<String[]>();
+        proxys.add(new String[]{"115.218.126.243", "9000"});
+        proxys.add(new String[]{"115.223.223.42", "9000"});
+        proxys.add(new String[]{"115.218.125.169", "9000"});
         processors.add(new MovieProcessor());
         processors.add(new ListPageProcessor());
         processors.add(new TagPageProcessor());
@@ -52,9 +47,10 @@ public class DoubanMoviePageProcessorB implements PageProcessor {
     @Override
     public void process(Page page) {
 
-        if(System.currentTimeMillis() - startTime >= 1000 * 60 * 30) {
+        if(System.currentTimeMillis() - startTime >= 1000 * 60 * 3) {
             startTime = System.currentTimeMillis();
-            site.setUserAgent(userAgents.remove(0));
+            site.setUserAgent(UserAgentUtils.getUserAgent());
+            logger.info("userAgent is update :{}", site.getUserAgent());
         }
 
         try {
