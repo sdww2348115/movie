@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.scheduler.Scheduler;
 
 /**
  * Created by sdww on 2015/11/24.
@@ -15,16 +16,10 @@ import us.codecraft.webmagic.Spider;
 @Component("main")
 public class Main {
 
-    @Autowired
-    MoviePipeline moviePipeline;
-
-    public void go() {
-        Spider.create(new DoubanMoviePageProcessorB()).addUrl("http://movie.douban.com/tag/").addPipeline(moviePipeline).thread(5).run();
-    }
-
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/applicationContext*.xml");
-        final Main main = (Main)applicationContext.getBean("main");
-        main.go();
+        final Spider spider = (Spider)applicationContext.getBean("movieSpider");
+        spider.setScheduler((Scheduler)applicationContext.getBean("queueScheduler"));
+        spider.run();
     }
 }

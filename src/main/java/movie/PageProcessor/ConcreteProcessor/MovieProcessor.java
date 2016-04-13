@@ -13,7 +13,7 @@ public class MovieProcessor extends BaseProcessor{
     public static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(MovieProcessor.class);
 
     public MovieProcessor() {
-        super("http://movie.douban.com/subject/[\\d]+(.*)");
+        super("http[s]{0,1}://movie.douban.com/subject/[\\d]+(.*)");
     }
 
     @Override

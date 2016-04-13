@@ -14,18 +14,18 @@ public class ListPageProcessor extends BaseProcessor{
     public static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(ListPageProcessor.class);
 
     public ListPageProcessor() {
-        super("http://www.douban.com/tag/[\\u4e00-\\u9fa5a-zA-Z0-9]+/movie");
+        super("http[s]{0,1}://www.douban.com/tag/[\\u4e00-\\u9fa5a-zA-Z0-9]+/movie");
     }
 
     @Override
     public void process(Page page) {
 
         //因为豆瓣的列表页面为动态生成的，当一个列表页没有具体电影信息的话，即可忽略此页后续的链接
-        if(page.getHtml().links().regex("http://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all() == null || page.getHtml().links().regex("http://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all().size() == 0) {
+        if(page.getHtml().links().regex("http[s]{0,1}://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all() == null || page.getHtml().links().regex("http[s]{0,1}://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all().size() == 0) {
 
             String tag = "UNKNOWN";
             Scanner scanner = new Scanner(page.getUrl().get());
-            final String pattern = "http://www.douban.com/tag/([\\u4e00-\\u9fa5a-zA-Z0-9]+)/movie";
+            final String pattern = "http[s]{0,1}://www.douban.com/tag/([\\u4e00-\\u9fa5a-zA-Z0-9]+)/movie";
             if(scanner.hasNext(pattern)) {
                 scanner.next(pattern);
                 MatchResult matchResult = scanner.match();
@@ -37,9 +37,10 @@ public class ListPageProcessor extends BaseProcessor{
         }
 
         //添加该页的所有列表页与具体电影页
-        List<String> urls = page.getHtml().links().regex("http://www.douban.com/tag/[\\u4e00-\\u9fa5a-zA-Z0-9]+/movie\\?start=[\\d]+").all();
-        urls.addAll(page.getHtml().links().regex("http://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all());
+        List<String> urls = page.getHtml().links().regex("http[s]{0,1}://www.douban.com/tag/[\\u4e00-\\u9fa5a-zA-Z0-9]+/movie\\?start=[\\d]+").all();
+        urls.addAll(page.getHtml().links().regex("http[s]{0,1}://movie.douban.com/subject/[\\d]+/\\?from=tag_all").all());
         page.addTargetRequests(urls);
+        logger.info("page" + page.getUrl().get() + "adds {} targets", page.getTargetRequests().size());
         return;
     }
 }

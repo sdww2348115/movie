@@ -1,7 +1,6 @@
 package movie.framework.aspect;
 
 import movie.entity.Movie;
-import movie.utils.BeanUtils;
 import org.aspectj.lang.JoinPoint;
 
 /**
@@ -9,7 +8,7 @@ import org.aspectj.lang.JoinPoint;
  */
 public class DaoAspect {
 
-    public static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(BeanUtils.class);
+    public static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(DaoAspect.class);
 
     /**
      * 在将Movie类传入数据库之前先处理，如果时间为null则置0.此处在数据库设置DEFAULT 0更好，此处只为练习AOP编程

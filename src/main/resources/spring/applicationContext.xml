@@ -20,12 +20,19 @@
 
     <!-- aop config -->
     <bean id="daoAspect" class="movie.framework.aspect.DaoAspect"/>
+    <!-- 如果此类实现了接口，即execution，则不能设置 proxy-target-class="true" -->
     <aop:config>
         <aop:aspect ref="daoAspect">
-
         <aop:pointcut id="daoCut" expression="execution(* movie.dao.MovieDao.addMovie(..))"/>
         <aop:before pointcut-ref="daoCut" method="before"/>
         </aop:aspect>
     </aop:config>
 
+    <bean id="schedulerAspect" class="movie.framework.aspect.SchedulerAspect"/>
+    <aop:config>
+        <aop:aspect ref="schedulerAspect">
+            <aop:pointcut id="schedulerCut" expression="execution(* us.codecraft.webmagic.scheduler.Scheduler.poll(..))"/>
+            <aop:before pointcut-ref="schedulerCut" method="before"/>
+        </aop:aspect>
+    </aop:config>
 </beans>
